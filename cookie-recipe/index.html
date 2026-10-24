@@ -1,205 +1,403 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
+<title>Сахарное печенье — Komori House</title>
+<meta name="description" content="Рецепт сахарного печенья для формочек-штампов Komori House: чёткий оттиск и отличный вкус.">
+<meta name="theme-color" content="#1B82F2">
+<meta property="og:title" content="Сахарное печенье — Komori House">
+<meta property="og:description" content="Классический рецепт для точного оттиска и отличного вкуса">
+<meta property="og:image" content="assets/hero-cookies.jpg">
+<link rel="icon" href="assets/icons/cookie.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&amp;family=Montserrat+Alternates:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Montserrat+Alternates:wght@700;800&display=swap" rel="stylesheet">
+<!-- Icons: Fluent Emoji by Microsoft, MIT License — https://github.com/microsoft/fluentui-emoji -->
 <style>
+  :root{
+    --blue:#1B82F2; --blue-d:#1366CC; --blue-l:#EAF3FE; --blue-ll:#DCEBFD;
+    --bg:#E9EDF2; --ink:#222831; --text:#3A3F4B; --muted:#737A88; --faint:#A2A9B6;
+    --line:#F0F2F6; --chip:#F4F6FA;
+    --shadow:0 18px 40px -24px rgba(27,82,160,.35);
+  }
   *{ box-sizing:border-box; }
-  body{ margin:0; background:#E9EDF2; -webkit-font-smoothing:antialiased; }
-  .doc{ box-sizing:border-box; max-width:580px; margin:0 auto; background:#E9EDF2;
-        padding:28px clamp(14px,4vw,28px) 64px; font-family:'Montserrat',sans-serif; }
-  .doc-frame{ width:100%; border-collapse:collapse; }
-  .doc-frame td{ padding:0; }
-  .pad-top,.pad-bottom{ display:none; }
-  .lg-grid{ display:block; }
-  .lg-left{ display:flex; flex-direction:column; gap:18px; }
+  p, .tip, .ing label span, .note span{ text-wrap:pretty; }
+  body{ margin:0; background:var(--bg); color:var(--text); font-family:'Montserrat',sans-serif; -webkit-font-smoothing:antialiased; }
+  img{ display:block; max-width:100%; }
+  button{ font:inherit; }
+  .doc{ max-width:580px; margin:0 auto; padding:28px clamp(14px,4vw,28px) 64px; }
+  .stack{ display:flex; flex-direction:column; gap:18px; }
+
+  .card{ background:#fff; border-radius:28px; padding:24px 22px; box-shadow:var(--shadow); position:relative; overflow:hidden; }
+  .em{ width:22px; height:22px; flex:none; display:inline-block; vertical-align:middle; }
+  .head{ display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+  .head .badge{ width:38px; height:38px; border-radius:11px; background:var(--blue-l); display:grid; place-items:center; flex:none; }
+  .head .badge.solid{ background:var(--blue); }
+  .head .badge .em{ width:24px; height:24px; }
+  h2{ font-weight:800; font-size:21px; color:var(--ink); margin:0; text-transform:uppercase; letter-spacing:.01em; }
+  .over{ font-weight:600; font-size:12px; letter-spacing:.06em; color:var(--faint); margin:0 0 10px; text-transform:uppercase; }
+  .deco{ position:absolute; color:var(--blue-ll); pointer-events:none; line-height:1; font-weight:800; }
+
+  /* hero */
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand img{ height:36px; width:auto; border-radius:8px; }
+  .brand span{ font-weight:600; font-size:11px; letter-spacing:.16em; color:#9AA2B1; text-transform:uppercase; }
+  h1{ font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:clamp(34px,9vw,46px); line-height:1.02; color:var(--blue); margin:18px 0 6px; letter-spacing:-.01em; }
+  .lead{ font-weight:500; font-size:16px; line-height:1.5; color:var(--muted); margin:0 0 18px; max-width:40ch; }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{ display:flex; align-items:center; gap:7px; background:var(--blue-l); color:var(--blue-d); font-weight:700; font-size:14px; padding:8px 14px 8px 10px; border-radius:999px; }
+  .chip .em{ width:20px; height:20px; }
+  .hero-photo{ border-radius:20px; overflow:hidden; margin-top:18px; }
+  .hero-photo img{ width:100%; aspect-ratio:16/9; object-fit:cover; }
+
+  /* ingredients */
+  .flavors{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-bottom:16px; }
+  .flavors button{ border:2px solid transparent; background:var(--chip); border-radius:16px; padding:10px; cursor:pointer; display:flex; align-items:center; gap:8px; font-weight:700; font-size:15px; color:#5B6270; text-align:left; }
+  .flavors button .em{ width:28px; height:28px; }
+  .flavors button[aria-pressed="true"]{ background:var(--blue-l); border-color:var(--blue); color:var(--blue-d); }
+  .flavor-note{ font-size:14px; line-height:1.5; color:var(--muted); font-weight:500; background:var(--chip); border-radius:14px; padding:11px 13px; margin:-6px 0 16px; }
+  .flavor-note:empty{ display:none; }
+  .count{ display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--blue-l); border-radius:18px; padding:10px 10px 10px 16px; margin-bottom:8px; }
+  .count label{ font-weight:700; font-size:15px; color:var(--blue-d); }
+  .stepper{ display:flex; align-items:center; gap:4px; background:#fff; border-radius:999px; padding:4px; }
+  .stepper button{ width:38px; height:38px; border-radius:50%; border:0; background:var(--blue); color:#fff; font-size:22px; font-weight:700; line-height:1; cursor:pointer; display:grid; place-items:center; }
+  .stepper button:disabled{ opacity:.35; cursor:default; }
+  .stepper input{ width:52px; border:0; text-align:center; font:inherit; font-weight:800; font-size:20px; color:var(--ink); background:none; -moz-appearance:textfield; }
+  .stepper input::-webkit-inner-spin-button, .stepper input::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
+  .stepper input:focus{ outline:none; }
+  .ing{ list-style:none; margin:0; padding:0; }
+  .ing li{ border-bottom:1px solid var(--line); }
+  .ing li:last-child{ border-bottom:0; }
+  .ing label{ display:flex; align-items:center; gap:12px; padding:12px 2px; cursor:pointer; font-size:16px; line-height:1.4; font-weight:500; color:var(--muted); }
+  .ing input{ appearance:none; -webkit-appearance:none; width:22px; height:22px; border-radius:7px; border:2px solid #C9D6E8; margin:0; flex:none; display:grid; place-items:center; cursor:pointer; transition:.15s; }
+  .ing input:checked{ background:var(--blue); border-color:var(--blue); }
+  .ing input:checked::after{ content:""; width:10px; height:5px; border:2.5px solid #fff; border-top:0; border-right:0; transform:translate(0,-1px) rotate(-45deg); }
+  .ing input:checked + span{ text-decoration:line-through; opacity:.45; }
+  .ing b{ font-weight:700; color:#2B2F38; }
+  .ing small{ font-size:13px; }
+  .tools{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+  .tool{ display:flex; align-items:center; gap:9px; background:var(--chip); color:#5B6270; font-weight:600; font-size:14px; line-height:1.3; padding:10px 12px 10px 10px; border-radius:12px; }
+  .tool.ours{ background:var(--blue-l); color:var(--blue-d); }
+  .tool.wide{ grid-column:1 / -1; }
+
+  /* preheat */
+  .note{ background:var(--blue); color:#fff; border-radius:24px; padding:18px 20px; box-shadow:0 18px 40px -22px rgba(27,82,160,.6); }
+  .note > b{ display:block; font-weight:800; font-size:15px; text-transform:uppercase; letter-spacing:.02em; margin-bottom:10px; }
+  .note div{ display:flex; gap:12px; align-items:flex-start; font-weight:500; font-size:15px; color:var(--blue-ll); line-height:1.45; }
+  .note div + div{ margin-top:8px; }
+  .note div .em{ width:24px; height:24px; }
+  .note strong{ color:#fff; }
+
+  /* steps */
+  .steps-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 6px; }
+  .steps-head .head{ margin:0; }
+  .progress{ font-weight:700; font-size:14px; color:var(--blue-d); background:#fff; padding:7px 13px; border-radius:999px; white-space:nowrap; }
+  .hint{ font-size:13px; color:var(--faint); font-weight:600; margin:6px 6px 0; }
+  .steps{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+  .step{ background:#fff; border-radius:22px; padding:16px 16px 16px 14px; box-shadow:0 14px 34px -26px rgba(27,82,160,.4); display:flex; gap:14px; cursor:pointer; transition:.2s; border:2px solid transparent; }
+  .step:hover{ border-color:var(--blue-l); }
+  .step .num{ flex:none; width:46px; height:46px; border-radius:14px; background:var(--blue-l); display:grid; place-items:center; position:relative; }
+  .step .num .em{ width:28px; height:28px; }
+  .step .num i{ position:absolute; top:-6px; left:-6px; width:22px; height:22px; border-radius:50%; background:var(--blue); color:#fff; font-style:normal; font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:11px; display:grid; place-items:center; border:2px solid #fff; }
+  .step p{ margin:0; font-size:16px; line-height:1.55; font-weight:500; }
+  .step p b{ color:var(--blue-d); }
+  .step .tip{ display:block; margin-top:8px; font-size:14px; line-height:1.5; color:var(--muted); background:var(--chip); border-radius:12px; padding:8px 11px; }
+  .step .tip::before{ content:"✦ "; color:var(--blue); }
+  .step.key{ background:linear-gradient(135deg,#fff 0%,var(--blue-l) 100%); }
+  .step .tag{ display:inline-block; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; background:var(--blue); color:#fff; padding:3px 8px; border-radius:6px; margin-bottom:6px; }
+  .step.done{ opacity:.5; }
+  .step.done .num{ background:var(--blue); }
+  .step.done p{ text-decoration:line-through; text-decoration-color:rgba(27,130,242,.5); }
+
+  /* promo */
+  .promo{ position:relative; overflow:hidden; display:block; background:var(--blue); border-radius:28px; padding:34px 22px 30px; text-align:center; text-decoration:none; color:#fff; box-shadow:0 22px 48px -20px rgba(27,82,160,.7); }
+  .promo .deco{ color:rgba(255,255,255,.14); }
+  .promo .bye{ font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:clamp(24px,6vw,30px); line-height:1.1; }
+  .promo .div{ width:54px; height:2px; background:rgba(255,255,255,.28); border-radius:2px; margin:20px auto; }
+  .promo .over{ color:rgba(255,255,255,.7); letter-spacing:.18em; padding-left:.18em; margin-bottom:6px; }
+  .promo .t{ font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:clamp(19px,5vw,24px); line-height:1.15; margin-bottom:18px; }
+  .promo .s{ font-weight:500; font-size:15px; line-height:1.5; color:var(--blue-ll); margin:0 auto 20px; max-width:34ch; }
+  /* phone: inset on the left, bleeds off the right edge to hint there is more to scroll */
+  .shapes{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; margin:0 -22px 16px 0; padding-right:22px; border-radius:16px 0 0 16px; scroll-snap-type:x mandatory; }
+  .shapes::-webkit-scrollbar{ display:none; }
+  .shapes img{ flex:none; width:112px; aspect-ratio:3/4; object-fit:cover; border-radius:16px; scroll-snap-align:start; background:#fff; }
+  .btn{ display:inline-flex; align-items:center; gap:9px; white-space:nowrap; background:#fff; color:var(--blue-d); font-weight:700; font-size:16px; padding:14px 28px; border-radius:999px; box-shadow:0 10px 24px -12px rgba(0,0,0,.45); transition:transform .15s; }
+  .promo:hover .btn{ transform:translateY(-1px); }
+  footer{ text-align:center; font-size:12px; color:var(--faint); font-weight:600; margin-top:22px; }
 
   @media (min-width:900px){
-    .doc{ max-width:1000px; padding:48px 40px 100px; }
-    .lg-grid{ display:grid; grid-template-columns:380px 1fr; gap:24px; align-items:start; }
-    .lg-left{ position:sticky; top:24px; }
-    .hero-card{ display:grid !important; grid-template-columns:1.3fr 1fr; gap:32px; align-items:center; }
-    .hero-photo{ margin:0 !important; }
-    .hero-photo img{ aspect-ratio:1/1 !important; }
+    .doc{ max-width:1040px; padding:48px 40px 100px; }
+    .hero{ display:grid; grid-template-columns:1.2fr 1fr; gap:32px; align-items:center; }
+    .hero-photo{ margin:0; }
+    .hero-photo img{ aspect-ratio:1/1; }
+    .grid{ display:grid; grid-template-columns:420px 1fr; gap:22px; align-items:start; }
+    .left{ position:sticky; top:24px; }
+    .shapes{ justify-content:center; margin:0 0 18px; padding:0; border-radius:16px; }
+    .shapes img{ width:120px; }
   }
+  @media (max-width:899px){ .grid{ display:flex; flex-direction:column; gap:18px; } }
+  @media (max-width:420px){ .flavors button{ padding:10px 8px; gap:7px; font-size:13.5px; } .flavors button .em{ width:24px; height:24px; } }
 
-  @page{ size:letter; margin:0; }
   @media print{
     html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-    html,body{ margin:0; padding:0; background:#fff; }
-    .doc{ max-width:none !important; margin:0 !important; padding:0 0.55in !important; background:#fff !important; }
-    .pad-top,.pad-bottom{ display:table-cell; height:0.55in; }
-    .screen-only{ display:none !important; }
-    .card,.step{ break-inside:avoid; }
-    h1,h2,h3{ break-after:avoid; }
-    .lg-grid{ display:block !important; }
-    .lg-left{ position:static !important; }
-    .hero-card{ display:block !important; }
+    body,.doc{ background:#fff; }
+    .screen-only,.hint,.progress,.count .stepper button{ display:none !important; }
+    .card,.step{ break-inside:avoid; box-shadow:none; border:1px solid #E3E8EF; }
+    .left{ position:static; }
   }
 </style>
-</helmet>
-
+</head>
+<body>
 <main class="doc">
-<table class="doc-frame" role="presentation">
-<thead><tr><td class="pad-top"></td></tr></thead>
-<tbody><tr><td>
+<div class="stack">
 
-  <!-- ============ HEADER ============ -->
-  <div class="card hero-card" style="position:relative; overflow:hidden; background:#fff; border-radius:28px; padding:26px 22px 24px; box-shadow:0 18px 40px -24px rgba(27,82,160,.35); margin-bottom:18px;">
-
-    <div style="position:relative;">
-      <!-- scattered deco (kept above the text block, top-right of the text column) -->
-      <div style="position:absolute; top:-6px; right:14px; font-family:'Montserrat',sans-serif; font-weight:800; font-size:34px; color:#DCEBFD; line-height:1; z-index:1;">#</div>
-      <div style="position:absolute; top:-14px; right:90px; color:#E2EEFD; font-size:24px; line-height:1; z-index:1;">✦</div>
-      <div style="position:absolute; top:30px; right:144px; color:#E6F0FD; font-size:16px; line-height:1; z-index:1;">✦</div>
-
-      <div style="display:flex; align-items:center; gap:10px;">
-        <img src="assets/komori-logo-2.svg" alt="Komori House" style="height:36px; width:auto; border-radius:8px; display:block;">
-        <div style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:11px; letter-spacing:.16em; color:#9AA2B1; text-transform:uppercase;">Печём вместе</div>
-      </div>
-
-      <h1 style="font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:clamp(34px,9vw,46px); line-height:1.02; color:#1B82F2; margin:18px 0 6px; letter-spacing:-.01em;">Сахарное<br>печенье</h1>
-      <p style="font-family:'Montserrat',sans-serif; font-weight:500; font-size:15px; line-height:1.5; color:#737A88; margin:0 0 18px; max-width:40ch;">Классический рецепт для точного оттиска и отличного вкуса</p>
-
-      <!-- meta chips -->
-      <div style="display:flex; flex-wrap:wrap; gap:8px;">
-        <div style="display:flex; align-items:center; gap:6px; background:#EAF3FE; color:#1366CC; font-weight:700; font-size:13px; padding:8px 13px; border-radius:999px;"><span style="font-size:15px;">🍪</span>15 шт.</div>
-        <div style="display:flex; align-items:center; gap:6px; background:#EAF3FE; color:#1366CC; font-weight:700; font-size:13px; padding:8px 13px; border-radius:999px;"><span style="font-size:15px;">🔥</span>180&nbsp;°C</div>
-        <div style="display:flex; align-items:center; gap:6px; background:#EAF3FE; color:#1366CC; font-weight:700; font-size:13px; padding:8px 13px; border-radius:999px;"><span style="font-size:15px;">⏱</span>~40&nbsp;минут</div>
+  <!-- ============ HERO ============ -->
+  <header class="card hero">
+    <div style="position:relative">
+      <div class="deco" style="top:-6px; right:14px; font-size:34px;">#</div>
+      <div class="deco" style="top:-14px; right:90px; font-size:24px;">✦</div>
+      <div class="deco" style="top:30px; right:144px; font-size:16px;">✦</div>
+      <div class="brand"><img src="assets/komori-logo-2.svg" alt="Komori House"><span>Печём вместе</span></div>
+      <h1>Сахарное<br>печенье</h1>
+      <p class="lead">Классический рецепт для точного оттиска и отличного вкуса</p>
+      <div class="chips">
+        <div class="chip"><img class="em" src="assets/icons/cookie.svg" alt="">15&nbsp;шт.</div>
+        <div class="chip"><img class="em" src="assets/icons/fire.svg" alt="">180&nbsp;°C</div>
+        <div class="chip"><img class="em" src="assets/icons/stopwatch.svg" alt="">~1&nbsp;час</div>
       </div>
     </div>
+    <div class="hero-photo"><img src="assets/hero-cookies.jpg" alt="Готовое печенье в форме животных и цветов"></div>
+  </header>
 
-    <!-- hero photo -->
-    <div class="hero-photo" style="border-radius:20px; overflow:hidden; margin:18px 0 0; width:100%;">
-      <img src="assets/hero-photo-final.jpg" alt="Готовое печенье в форме животных и цветов" style="display:block; width:100%; aspect-ratio:16/9; object-fit:cover; height:auto;">
-    </div>
-  </div>
+  <div class="grid">
 
-  <div class="lg-grid">
-  <div class="lg-left">
+    <!-- ============ INGREDIENTS ============ -->
+    <section class="card left" id="ingredients">
+      <div class="head"><div class="badge"><img class="em" src="assets/icons/basket.svg" alt=""></div><h2>Ингредиенты</h2></div>
 
-  <!-- ============ INGREDIENTS ============ -->
-  <div class="card" style="background:#fff; border-radius:28px; padding:24px 22px; box-shadow:0 18px 40px -24px rgba(27,82,160,.35);">
-    <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
-      <div style="width:30px; height:30px; border-radius:9px; background:#EAF3FE; display:flex; align-items:center; justify-content:center; font-size:16px;">🧺</div>
-      <h2 style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:21px; color:#222831; margin:0; text-transform:uppercase; letter-spacing:.01em;">Ингредиенты</h2>
-    </div>
-    <p style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:12px; letter-spacing:.04em; color:#A2A9B6; margin:0 0 12px; text-transform:uppercase;">НА 15 ШТУК ПОНАДОБИТСЯ</p>
+      <p class="over">Выберите вкус</p>
+      <div class="flavors" role="group" aria-label="Вкус">
+        <button type="button" data-f="vanilla" aria-pressed="true"><img class="em" src="assets/icons/vanilla.svg" alt="">Ванильное</button>
+        <button type="button" data-f="choc" aria-pressed="false"><img class="em" src="assets/icons/choc.svg" alt="">Шоколадное</button>
+        <button type="button" data-f="lemon" aria-pressed="false"><img class="em" src="assets/icons/lemon.svg" alt="">Лимонное</button>
+        <button type="button" data-f="spice" aria-pressed="false"><img class="em" src="assets/icons/ginger.svg" alt="">Пряное</button>
+      </div>
+      <p class="flavor-note" id="flavorNote"></p>
 
-    <div style="display:flex; flex-direction:column; gap:2px;">
-      <div style="display:flex; align-items:baseline; gap:12px; padding:11px 2px; border-bottom:1px solid #F0F2F6;"><span style="width:9px; height:9px; border-radius:50%; background:#1B82F2; flex:none; transform:translateY(-1px);"></span><span style="font-weight:700; font-size:15px; color:#2B2F38;">50&nbsp;г</span><span style="font-size:15px; color:#737A88; font-weight:500;">сахарной пудры</span></div>
-      <div style="display:flex; align-items:baseline; gap:12px; padding:11px 2px; border-bottom:1px solid #F0F2F6;"><span style="width:9px; height:9px; border-radius:50%; background:#1B82F2; flex:none; transform:translateY(-1px);"></span><span style="font-weight:700; font-size:15px; color:#2B2F38;">75&nbsp;г</span><span style="font-size:15px; color:#737A88; font-weight:500;">мягкого сливочного масла</span></div>
-      <div style="display:flex; align-items:baseline; gap:12px; padding:11px 2px; border-bottom:1px solid #F0F2F6;"><span style="width:9px; height:9px; border-radius:50%; background:#1B82F2; flex:none; transform:translateY(-1px);"></span><span style="font-weight:700; font-size:15px; color:#2B2F38;">1</span><span style="font-size:15px; color:#737A88; font-weight:500;">желток крупного яйца</span></div>
-      <div style="display:flex; align-items:baseline; gap:12px; padding:11px 2px; border-bottom:1px solid #F0F2F6;"><span style="width:9px; height:9px; border-radius:50%; background:#1B82F2; flex:none; transform:translateY(-1px);"></span><span style="font-size:15px; color:#737A88; font-weight:500;">несколько капель <span style="color:#2B2F38; font-weight:700;">ванильного экстракта</span> <span style="font-size:13px;">(или ванилин на кончике ножа)</span></span></div>
-      <div style="display:flex; align-items:baseline; gap:12px; padding:11px 2px;"><span style="width:9px; height:9px; border-radius:50%; background:#1B82F2; flex:none; transform:translateY(-1px);"></span><span style="font-weight:700; font-size:15px; color:#2B2F38;">150&nbsp;г</span><span style="font-size:15px; color:#737A88; font-weight:500;">пшеничной муки</span></div>
-    </div>
+      <div class="count">
+        <label for="qty">Сколько печенья?</label>
+        <div class="stepper">
+          <button type="button" id="minus" aria-label="Меньше">−</button>
+          <input id="qty" type="number" inputmode="numeric" min="5" max="90" value="15" aria-label="Количество печенья">
+          <button type="button" id="plus" aria-label="Больше">+</button>
+        </div>
+      </div>
 
-    <p style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:12px; letter-spacing:.04em; color:#A2A9B6; margin:20px 0 10px; text-transform:uppercase;">А ТАКЖЕ</p>
-    <div style="display:flex; flex-wrap:wrap; gap:8px;">
-      <div style="display:flex; align-items:center; gap:7px; background:#F4F6FA; color:#5B6270; font-weight:600; font-size:13px; padding:9px 13px; border-radius:12px;"><span>🥄</span>лопатка</div>
-      <div style="display:flex; align-items:center; gap:7px; background:#F4F6FA; color:#5B6270; font-weight:600; font-size:13px; padding:9px 13px; border-radius:12px;"><span>🌸</span>вырубка и штамп</div>
-      <div style="display:flex; align-items:center; gap:7px; background:#F4F6FA; color:#5B6270; font-weight:600; font-size:13px; padding:9px 13px; border-radius:12px;"><span>🧈</span>противень с бумагой для выпечки</div>
-    </div>
-  </div>
+      <ul class="ing" id="ingList"></ul>
 
-  <!-- ============ PREHEAT NOTE ============ -->
-  <div class="card" style="background:#1B82F2; border-radius:24px; padding:18px 20px; box-shadow:0 18px 40px -22px rgba(27,82,160,.6); display:flex; align-items:center; gap:14px;">
-    <div style="font-size:30px; line-height:1; flex:none;">🔥</div>
-    <div>
-      <div style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:15px; color:#fff; text-transform:uppercase; letter-spacing:.02em; margin-bottom:3px;">Перед стартом</div>
-      <div style="font-family:'Montserrat',sans-serif; font-weight:500; font-size:14px; color:#DCEBFD; line-height:1.45;">Духовка должна разогреться до <b style="color: rgb(255, 255, 255);">180&nbsp;°C</b> к моменту выпечки — включите её заранее</div>
-    </div>
-  </div>
+      <p class="over" style="margin-top:18px">А также</p>
+      <div class="tools">
+        <div class="tool ours wide"><img class="em" src="assets/komori-kanji.svg" alt="">вырубка и штамп Komori House</div>
+        <div class="tool"><img class="em" src="assets/icons/rolling-pin.svg" alt="">скалка</div>
+        <div class="tool"><img class="em" src="assets/icons/spoon.svg" alt="">лопатка</div>
+        <div class="tool wide"><img class="em" src="assets/icons/baking-tray.svg" alt="">противень с пергаментом</div>
+      </div>
+    </section>
 
-  </div>
-  <div>
+    <!-- ============ STEPS ============ -->
+    <div class="stack">
+      <div class="steps-head">
+        <div class="head"><div class="badge solid"><img class="em" src="assets/icons/cook.svg" alt=""></div><h2>Приготовление</h2></div>
+        <div class="progress screen-only"><span id="done">0</span> / 9</div>
+      </div>
 
-  <!-- ============ STEPS ============ -->
-  <div style="display:flex; align-items:center; gap:10px; margin:26px 6px 16px;">
-    <div style="width:30px; height:30px; border-radius:9px; background:#1B82F2; display:flex; align-items:center; justify-content:center; font-size:15px;">👩‍🍳</div>
-    <h2 style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:21px; color:#222831; margin:0; text-transform:uppercase; letter-spacing:.01em;">Приготовление</h2>
-  </div>
+      <div class="note">
+        <b>Перед стартом</b>
+        <div><img class="em" src="assets/icons/butter.svg" alt=""><span>Заранее достаньте масло из холодильника — к началу готовки оно должно стать мягким</span></div>
+        <div><img class="em" src="assets/icons/fire.svg" alt=""><span>Духовка должна разогреться до <strong>180&nbsp;°C</strong> к моменту выпечки — удобно включить её на шаге&nbsp;4, пока тесто охлаждается</span></div>
+      </div>
 
-  <div style="display:flex; flex-direction:column; gap:14px;">
-
-    <div class="step card" style="background:#fff; border-radius:22px; padding:18px 18px 18px 16px; box-shadow:0 14px 34px -26px rgba(27,82,160,.4); display:flex; align-items:center; gap:14px;">
-      <div style="flex:none; width:34px; height:34px; border-radius:50%; background:#EAF3FE; color:#1B82F2; font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:17px; display:flex; align-items:center; justify-content:center;">1</div>
-      <p style="margin:0; font-size:15px; line-height:1.55; color:#3A3F4B; font-weight:500;">Просеять сахарную пудру, добавить мягкое сливочное масло и растереть лопаткой до однородной кремовой массы</p>
-    </div>
-
-    <div class="step card" style="background:#fff; border-radius:22px; padding:18px 18px 18px 16px; box-shadow:0 14px 34px -26px rgba(27,82,160,.4); display:flex; align-items:center; gap:14px;">
-      <div style="flex:none; width:34px; height:34px; border-radius:50%; background:#EAF3FE; color:#1B82F2; font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:17px; display:flex; align-items:center; justify-content:center;">2</div>
-      <p style="margin:0; font-size:15px; line-height:1.55; color:#3A3F4B; font-weight:500;">Добавить желток и ванильный экстракт, тщательно перемешать</p>
-    </div>
-
-    <div class="step card" style="background:#fff; border-radius:22px; padding:18px 18px 18px 16px; box-shadow:0 14px 34px -26px rgba(27,82,160,.4); display:flex; align-items:center; gap:14px;">
-      <div style="flex:none; width:34px; height:34px; border-radius:50%; background:#EAF3FE; color:#1B82F2; font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:17px; display:flex; align-items:center; justify-content:center;">3</div>
-      <p style="margin:0; font-size:15px; line-height:1.55; color:#3A3F4B; font-weight:500;">Просеять муку и замесить тесто. Вымешивать до полной однородности, чтобы структура была гладкой и держала форму</p>
-    </div>
-
-    <div class="step card" style="background:#fff; border-radius:22px; padding:18px 18px 18px 16px; box-shadow:0 14px 34px -26px rgba(27,82,160,.4); display:flex; align-items:center; gap:14px;">
-      <div style="flex:none; width:34px; height:34px; border-radius:50%; background:#EAF3FE; color:#1B82F2; font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:17px; display:flex; align-items:center; justify-content:center;">4</div>
-      <p style="margin:0; font-size:15px; line-height:1.55; color:#3A3F4B; font-weight:500;">Завернуть тесто в плёнку и убрать в холодильник на 15–20 минут — так оно не будет липнуть к штампу и чётко передаст контур</p>
-    </div>
-
-    <div class="step card" style="background:#fff; border-radius:22px; padding:18px 18px 18px 16px; box-shadow:0 14px 34px -26px rgba(27,82,160,.4); display:flex; align-items:center; gap:14px;">
-      <div style="flex:none; width:34px; height:34px; border-radius:50%; background:#EAF3FE; color:#1B82F2; font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:17px; display:flex; align-items:center; justify-content:center;">5</div>
-      <p style="margin:0; font-size:15px; line-height:1.55; color:#3A3F4B; font-weight:500;">Раскатать тесто в пласт толщиной 5–7&nbsp;мм. Вырубкой и штампом сформировать печенье и перенести на противень с бумагой для выпечки</p>
-    </div>
-
-    <div class="step card" style="background:#fff; border-radius:22px; padding:18px 18px 18px 16px; box-shadow:0 14px 34px -26px rgba(27,82,160,.4); display:flex; align-items:center; gap:14px;">
-      <div style="flex:none; width:34px; height:34px; border-radius:50%; background:#EAF3FE; color:#1B82F2; font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:17px; display:flex; align-items:center; justify-content:center;">6</div>
-      <p style="margin:0; font-size:15px; line-height:1.55; color:#3A3F4B; font-weight:500;">Выпекать в разогретой до <b style="color: rgb(19, 102, 204);">180&nbsp;°C</b> духовке <b style="color: rgb(19, 102, 204);">10–12 минут</b>, до лёгкого золотистого оттенка по краям</p>
-    </div>
-
-    <div class="step card" style="background:#fff; border-radius:22px; padding:18px 18px 18px 16px; box-shadow:0 14px 34px -26px rgba(27,82,160,.4); display:flex; align-items:center; gap:14px;">
-      <div style="flex:none; width:34px; height:34px; border-radius:50%; background:#1B82F2; color:#fff; font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:17px; display:flex; align-items:center; justify-content:center;">7</div>
-      <p style="margin:0; font-size:15px; line-height:1.55; color:#3A3F4B; font-weight:500;">Переложить печенье на решётку и полностью остудить. По желанию украсить глазурью — и готово! 🎉</p>
+      <p class="hint screen-only">Нажмите на шаг, чтобы отметить его выполненным</p>
+      <ol class="steps">
+        <li class="step"><div class="num"><i>1</i><img class="em" src="assets/icons/bowl.svg" alt=""></div>
+          <p>Просеять сахарную пудру, добавить мягкое сливочное масло и соль, растереть лопаткой до однородной кремовой массы</p></li>
+        <li class="step"><div class="num"><i>2</i><img class="em" src="assets/icons/egg.svg" alt=""></div>
+          <p>Добавить желток и <span data-v="step2">ванильный экстракт</span>, тщательно перемешать</p></li>
+        <li class="step"><div class="num"><i>3</i><img class="em" src="assets/icons/rice.svg" alt=""></div>
+          <p>Просеять муку<span data-v="step3"></span> и замесить тесто. Вымешивать до однородности, чтобы тесто было гладким и держало форму</p></li>
+        <li class="step"><div class="num"><i>4</i><img class="em" src="assets/icons/snow.svg" alt=""></div>
+          <p>Завернуть тесто в плёнку и убрать в холодильник на <b>30 минут</b> — так оно не будет липнуть к штампу и чётко передаст контур</p></li>
+        <li class="step"><div class="num"><i>5</i><img class="em" src="assets/icons/rolling-pin.svg" alt=""></div>
+          <p>Раскатать тесто в пласт толщиной <b>5–7&nbsp;мм</b><span class="tip">Удобно раскатывать между двумя листами бумаги для выпечки — тесто не прилипнет к скалке</span></p></li>
+        <li class="step key"><div class="num"><i>6</i><img class="em" src="assets/icons/cookie.svg" alt=""></div>
+          <p><span class="tag">Для чёткого оттиска</span><br>Вырезать печенье вырубкой, затем прижать штамп внутри неё — ровно, с равномерным усилием. Перенести печенье на противень с бумагой для выпечки<span class="tip">Тесто должно быть холодным — тогда оно не липнет к штампу. Для надёжности можно слегка припылить штамп мукой</span></p></li>
+        <li class="step"><div class="num"><i>7</i><img class="em" src="assets/icons/timer.svg" alt=""></div>
+          <p>Выпекать в разогретой до <b>180&nbsp;°C</b> духовке <b>10–12 минут</b>, до лёгкого золотистого оттенка по краям</p></li>
+        <li class="step"><div class="num"><i>8</i><img class="em" src="assets/icons/party.svg" alt=""></div>
+          <p>Переложить печенье на решётку и полностью остудить. По желанию украсить глазурью — и готово!</p></li>
+        <li class="step"><div class="num"><i>9</i><img class="em" src="assets/icons/sponge.svg" alt=""></div>
+          <p>Помыть формочку тёплой водой с мягкой губкой и вытереть насухо<span class="tip">Не мойте в посудомойке и не опускайте в кипяток — пластик может деформироваться</span></p></li>
+      </ol>
     </div>
 
   </div>
 
-  </div>
-  </div>
-
-  <!-- ============ CLOSING + PROMO ============ -->
-  <a href="https://www.google.com" target="_blank" rel="noopener" style="position:relative; overflow:hidden; display:block; margin-top:18px; background:#1B82F2; border-radius:28px; padding:34px 26px 32px; text-align:center; text-decoration:none; box-shadow:0 22px 48px -20px rgba(27,82,160,.7);">
-
-    <!-- scattered deco -->
-    <div style="position:absolute; top:20px; right:26px; font-family:'Montserrat',sans-serif; font-weight:800; font-size:40px; color:rgba(255,255,255,.14); line-height:1;">#</div>
-    <div style="position:absolute; top:30px; left:30px; color:rgba(255,255,255,.16); font-size:22px; line-height:1;">✦</div>
-    <div style="position:absolute; bottom:30px; right:54px; color:rgba(255,255,255,.16); font-size:26px; line-height:1;">✦</div>
-    <div style="position:absolute; bottom:60px; left:48px; color:rgba(255,255,255,.12); font-size:16px; line-height:1;">✦</div>
-
-    <div style="position:relative;">
-      <!-- greeting -->
-      <div style="font-size:20px; color:rgba(255,255,255,.85); margin-bottom:8px; letter-spacing:.3em;">✦ ✦ ✦</div>
-      <div style="font-family:'Montserrat Alternates',sans-serif; font-weight:800; font-size:clamp(24px,6vw,30px); line-height:1.1; color:#fff; margin:0;">Приятного аппетита!</div>
-
-      <!-- divider -->
-      <div style="width:54px; height:2px; background:rgba(255,255,255,.28); border-radius:2px; margin:22px auto;"></div>
-
-      <!-- promo -->
-      <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:11px; letter-spacing:.18em; color:rgba(255,255,255,.7); text-transform:uppercase; margin-bottom:8px;">KOMORI HOUSE<br></div>
-      <div style="font-family: 'Montserrat Alternates',sans-serif; font-weight: 800; font-size: clamp(19px,5vw,24px); line-height: 1.15; color: #fff; margin: 0 auto 8px">Больше формочек 🍪</div>
-      <div style="font-family:'Montserrat',sans-serif; font-weight:500; font-size:14px; line-height:1.5; color:#DCEBFD; margin:0 auto 22px; max-width:34ch;">Зверюшки, цветы, машинки и десятки других штампов</div>
-
-      <div style="display:inline-flex; align-items:center; gap:9px; white-space:nowrap; background:#fff; color:#1366CC; font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px; padding:13px 24px; border-radius:999px; box-shadow:0 10px 24px -12px rgba(0,0,0,.45);">Перейти в магазин <span style="font-size:16px;">→</span></div>
+  <!-- ============ PROMO ============ -->
+  <a class="promo" href="https://www.ozon.ru/seller/komori-house/" target="_blank" rel="noopener">
+    <div class="deco" style="top:20px; right:26px; font-size:40px;">#</div>
+    <div class="deco" style="top:30px; left:30px; font-size:22px;">✦</div>
+    <div class="deco" style="bottom:30px; right:54px; font-size:26px;">✦</div>
+    <div class="deco" style="bottom:70px; left:40px; font-size:16px;">✦</div>
+    <div style="position:relative">
+      <div class="bye">Приятного аппетита!</div>
+      <div class="div"></div>
+      <p class="over">Komori House</p>
+      <div class="t">Больше формочек 🍪</div>
+      <div class="shapes">
+        <img src="assets/shop-mushroom.jpg" alt="Печенье-грибочек и формочка" loading="lazy">
+        <img src="assets/shop-dogs.jpg" alt="Печенье-собачки" loading="lazy">
+        <img src="assets/shop-penguin.jpg" alt="Печенье-пингвин и формочка" loading="lazy">
+        <img src="assets/shop-leaf.jpg" alt="Формочка-веточка" loading="lazy">
+        <img src="assets/shop-plane.jpg" alt="Печенье-самолётик и формочка" loading="lazy">
+        <img src="assets/shop-fish.jpg" alt="Печенье-сэндвич в форме рыбки" loading="lazy">
+        <img src="assets/shop-toast.jpg" alt="Печенье-сэндвич в форме тоста" loading="lazy">
+      </div>
+      <p class="s">Зверюшки, цветы, машинки и десятки других штампов</p>
+      <span class="btn">Перейти в магазин <span aria-hidden="true">→</span></span>
     </div>
   </a>
 
-</td></tr></tbody>
-<tfoot><tr><td class="pad-bottom"></td></tr></tfoot>
-</table>
+</div>
+<footer>© Komori House · Печём вместе</footer>
 </main>
-</x-dc>
+
+<script>
+  const BASE = 15;  // the recipe below is written for 15 cookies
+
+  // amount: {g} grams (rounded to 5), {n, step, word} counted items, or plain text
+  const FLAVORS = {
+    vanilla: {
+      step2: 'ванильный экстракт', step3: '',
+      items: [
+        { g: 50,  t: 'сахарной пудры' },
+        { g: 75,  t: 'мягкого сливочного масла' },
+        { n: 1, step: .5, min: 1, word: ['желток', 'желтка', 'желтков'], t: 'крупного яйца' },
+        { text: 'щепотка соли', big: '2 щепотки соли' },
+        { text: 'несколько капель <b>ванильного экстракта</b> <small>(или ванилин на кончике ножа)</small>' },
+        { g: 150, t: 'пшеничной муки' },
+      ],
+    },
+    choc: {
+      step2: 'ванильный экстракт', step3: ' вместе с какао-порошком',
+      note: 'Совет: соедините кусочки ванильного и шоколадного теста перед раскаткой — получится двухцветное печенье, как котик на фото сверху',
+      items: [
+        { g: 50,  t: 'сахарной пудры' },
+        { g: 75,  t: 'мягкого сливочного масла' },
+        { n: 1, step: .5, min: 1, word: ['желток', 'желтка', 'желтков'], t: 'крупного яйца' },
+        { text: 'щепотка соли', big: '2 щепотки соли' },
+        { text: 'несколько капель <b>ванильного экстракта</b> <small>(или ванилин на кончике ножа)</small>' },
+        { g: 130, t: 'пшеничной муки' },
+        { g: 20,  t: 'какао-порошка' },
+      ],
+    },
+    lemon: {
+      step2: 'лимонную цедру', step3: '',
+      items: [
+        { g: 50,  t: 'сахарной пудры' },
+        { g: 75,  t: 'мягкого сливочного масла' },
+        { n: 1, step: .5, min: 1, word: ['желток', 'желтка', 'желтков'], t: 'крупного яйца' },
+        { text: 'щепотка соли', big: '2 щепотки соли' },
+        { n: .5, step: .5, pre: 'цедра', word: ['лимона', 'лимонов', 'лимонов'], t: '<small>(только жёлтый слой)</small>' },
+        { g: 150, t: 'пшеничной муки' },
+      ],
+    },
+    spice: {
+      step2: 'ванильный экстракт', step3: ' вместе с пряностями',
+      items: [
+        { g: 50,  t: 'сахарной пудры' },
+        { g: 75,  t: 'мягкого сливочного масла' },
+        { n: 1, step: .5, min: 1, word: ['желток', 'желтка', 'желтков'], t: 'крупного яйца' },
+        { text: 'щепотка соли', big: '2 щепотки соли' },
+        { text: 'несколько капель <b>ванильного экстракта</b> <small>(по желанию)</small>' },
+        { g: 150, t: 'пшеничной муки' },
+        { n: 1,  step: .25, unit: 'ч.&nbsp;л.', t: 'молотой корицы' },
+        { n: .5, step: .25, unit: 'ч.&nbsp;л.', t: 'молотого имбиря' },
+      ],
+    },
+  };
+
+  const FRAC = { .25: '¼', .5: '½', .75: '¾' };
+  const fmt = v => { const w = Math.floor(v), f = FRAC[+(v - w).toFixed(2)] || ''; return (w ? w : '') + f || '0'; };
+  // Russian plural; fractional amounts take the genitive singular ("1½ желтка", "½ лимона")
+  const plural = (v, [one, few, many]) => {
+    if (v % 1) return few;
+    const m10 = v % 10, m100 = v % 100;
+    return m10 === 1 && m100 !== 11 ? one : (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14) ? few : many);
+  };
+
+  let flavor = 'vanilla', qty = BASE;
+  const $ = id => document.getElementById(id);
+  const list = $('ingList'), input = $('qty');
+
+  function amount(it, k) {
+    if (it.g) return `<b>${Math.max(5, Math.round(it.g * k / 5) * 5)}&nbsp;г</b> ${it.t}`;
+    if (it.n) {
+      const v = Math.max(it.min || it.step, Math.round(it.n * k / it.step) * it.step);
+      if (it.unit) return `<b>${fmt(v)}&nbsp;${it.unit}</b> ${it.t}`;
+      if (it.pre) return `${it.pre} <b>${fmt(v)} ${v % 1 ? it.word[0] : plural(v, it.word)}</b> ${it.t}`;
+      return `<b>${fmt(v)} ${plural(v, it.word)}</b> ${it.t}`;
+    }
+    return it.big && k >= 2 ? it.big : it.text;
+  }
+
+  function render() {
+    const f = FLAVORS[flavor], k = qty / BASE;
+    const checked = [...list.querySelectorAll('input')].map(i => i.checked);
+    list.innerHTML = f.items.map((it, i) =>
+      `<li><label><input type="checkbox"${checked[i] ? ' checked' : ''}><span>${amount(it, k)}</span></label></li>`).join('');
+    document.querySelectorAll('[data-v]').forEach(el => el.textContent = f[el.dataset.v]);
+    $('flavorNote').textContent = f.note || '';
+    document.querySelectorAll('.flavors button').forEach(b => b.setAttribute('aria-pressed', b.dataset.f === flavor));
+    $('minus').disabled = qty <= +input.min;
+    $('plus').disabled = qty >= +input.max;
+  }
+
+  function setQty(v) {
+    qty = Math.min(+input.max, Math.max(+input.min, Math.round(v) || BASE));
+    input.value = qty;
+    render();
+  }
+
+  document.querySelectorAll('.flavors button').forEach(b => b.addEventListener('click', () => {
+    flavor = b.dataset.f;
+    list.innerHTML = '';  // new list of ingredients, so reset the ticks
+    render();
+  }));
+  $('minus').addEventListener('click', () => setQty(qty - 1));
+  $('plus').addEventListener('click', () => setQty(qty + 1));
+  input.addEventListener('change', () => setQty(+input.value));
+  input.addEventListener('input', () => { if (+input.value >= +input.min && +input.value <= +input.max) { qty = +input.value; render(); } });
+  render();
+
+  // desktop: the ingredients card sticks, but if it is taller than the screen,
+  // stick by its bottom edge so the whole list can still be scrolled into view
+  const card = $('ingredients');
+  // (on phones the card is position:relative, where a top offset would just shift it)
+  const stick = () => {
+    card.style.top = getComputedStyle(card).position === 'sticky'
+      ? Math.min(24, innerHeight - card.offsetHeight - 24) + 'px' : '';
+  };
+  new ResizeObserver(stick).observe(card);
+  addEventListener('resize', stick);
+  addEventListener('load', stick);
+  stick();
+
+  // steps: tap to mark done
+  document.querySelectorAll('.step').forEach(s => s.addEventListener('click', () => {
+    s.classList.toggle('done');
+    $('done').textContent = document.querySelectorAll('.step.done').length;
+  }));
+</script>
 </body>
 </html>
